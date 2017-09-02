@@ -71,6 +71,7 @@ var Calculadora={
       default:
 
     }
+      Calculadora.oper=""
   },
   inicialize:function(){
     document.getElementById('1').addEventListener('click',function(){
@@ -101,7 +102,9 @@ var Calculadora={
       Calculadora.escribir("9")
     })
     document.getElementById('0').addEventListener('click',function(){
+
       Calculadora.escribir("0")
+
     })
     document.getElementById('punto').addEventListener('click',function(){
       Calculadora.escribir(".")
@@ -127,6 +130,11 @@ var Calculadora={
     document.getElementById("on").addEventListener('click',function(){
       Calculadora.escribir('r')
     })
+//Para lograr el efecto de boton presionado
+var hoja = document.createElement('style')
+hoja.innerHTML = ".tecla:active{transform-origin: center !important; transform: scale(0.98);}";
+document.head.appendChild(hoja);
+
   },
   escribir:function(car){
     var pantalla=document.getElementById('display')
@@ -152,24 +160,57 @@ var Calculadora={
       pantalla.innerText*=(-1)
     }
     else if (car=="+") {
-      Calculadora.op1=pantalla.innerText
-      Calculadora.oper='+'
-      pantalla.innerText=''
+      if (Calculadora.oper=="") {
+        Calculadora.op1=pantalla.innerText
+        Calculadora.oper='+'
+        pantalla.innerText=''
+      }
+      else {
+        Calculadora.op2=pantalla.innerText
+        Calculadora.mostrarResultado()
+        Calculadora.op1=Calculadora.resultado
+        Calculadora.escribir('+')
+      }
+
     }
     else if (car=="-") {
-      Calculadora.op1=pantalla.innerText
-      Calculadora.oper='-'
-      pantalla.innerText=''
+      if (Calculadora.oper=="") {
+        Calculadora.op1=pantalla.innerText
+        Calculadora.oper='-'
+        pantalla.innerText=''
+      }
+      else {
+        Calculadora.op2=pantalla.innerText
+        Calculadora.mostrarResultado()
+        Calculadora.op1=Calculadora.resultado
+        Calculadora.escribir('-')
+      }
     }
     else if (car=="*") {
-      Calculadora.op1=pantalla.innerText
-      Calculadora.oper='*'
-      pantalla.innerText=''
+      if (Calculadora.oper=="") {
+        Calculadora.op1=pantalla.innerText
+        Calculadora.oper='*'
+        pantalla.innerText=''
+      }
+      else {
+        Calculadora.op2=pantalla.innerText
+        Calculadora.mostrarResultado()
+        Calculadora.op1=Calculadora.resultado
+        Calculadora.escribir('*')
+      }
     }
     else if (car=="/") {
-      Calculadora.op1=pantalla.innerText
-      Calculadora.oper='/'
-      pantalla.innerText=''
+      if (Calculadora.oper=="") {
+        Calculadora.op1=pantalla.innerText
+        Calculadora.oper='/'
+        pantalla.innerText=''
+      }
+      else {
+        Calculadora.op2=pantalla.innerText
+        Calculadora.mostrarResultado()
+        Calculadora.op1=Calculadora.resultado
+        Calculadora.escribir('/')
+      }
     }
     else if (car=='=') {
       Calculadora.op2=pantalla.innerText
